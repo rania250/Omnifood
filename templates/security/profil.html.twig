@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil{% endblock %}
+
+{% block body %}
+    <head>
+        <meta charset="UTF-8">
+        <title>Inscription!</title>
+        <link href="{{ asset('js/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
+        <link href="{{ asset('js/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet" />
+        <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
+    </head>
+    <main id="main" class="main-profile">
+        <div class="container light-style flex-grow-1 container-p-y">
+            <h2 class="font-weight-bold py-4 mb-5" style="font-size: 2.5rem;">Account settings</h2>
+            <div class="card overflow-hidden" style="border: 2px solid #ddd; border-radius: 10px;">
+                <div class="row no-gutters row-bordered row-border-light">
+                    <div class="col-md-12">
+                        <div class="tab-content">
+                            <div class="tab-pane fade active show" id="account-general">
+                                <div class="card-body media align-items-center">
+                                    {% if user.getPhotoProfil() %}
+                                        <img src="{{ asset('uploads/' ~ user.getPhotoProfil()) }}" alt="Photo de profil" class="d-block ui-w-120" style="width: 120px; height: 120px; border-radius: 50%;">
+                                    {% else %}
+                                        <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt class="d-block ui-w-120" style="width: 120px; height: 120px; border-radius: 50%;">
+                                    {% endif %}
+                                    <div class="media-body ml-5">
+                                        <label class="btn btn-outline-primary" style="color: #f26430; border: 1px solid #f26430; font-size: 1.25rem;">
+                                            Upload new photo
+                                            <input type="file" class="account-settings-fileinput">
+                                        </label>
+                                    </div>
+                                    <button type="button" class="btn btn-primary ml-4" style="background-color: #f26430; border: 2px solid #f26430; font-size: 1.25rem;">
+                                        Déconnexion
+                                    </button>
+                                </div>
+                                <hr class="border-light m-0">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <b><label class="form-label" style="font-size: 1.5rem;">Nom complet</label></b>
+                                        <p class="form-control-plaintext" style="font-size: 1.25rem;">{{ user.fullName }}</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <b><label class="form-label" style="font-size: 1.5rem;">E-mail</label></b>
+                                        <p class="form-control-plaintext" style="font-size: 1.25rem;">{{ user.email }}</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <b><label class="form-label" style="font-size: 1.5rem;">Date de création du compte :</label></b>
+                                        <p class="form-control-plaintext" style="font-size: 1.25rem;">{{ user.dateInscription ? user.dateInscription|date('d/m/Y') : 'N/A' }}</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <a href="{{ path('app_edit_profile') }}" class="btn btn-primary" style="background-color: #f26430; border: 2px solid #f26430; font-size: 1.25rem;">Modifier le profil</a>
+                                        &nbsp;
+                                        <button type="button" class="btn btn-default" style="font-size: 1.25rem;">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

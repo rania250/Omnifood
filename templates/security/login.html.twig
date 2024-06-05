@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+    <main id="main" class="main-login">
+        <section class="section">
+            <div class="row d-flex justify-content-center align-items-center" style="margin-top: 50px;">
+                <div class="col-lg-8">
+                    <div class="shadow p-3 mb-5 bg-white rounded" style="padding: 20px;">
+                        <div class="row">
+                            <div class="col-lg-6 d-flex justify-content-center align-items-center">
+                                <div class="form form-content">
+                                    <form action="{{ path('app_login') }}" method="post">
+                                        <h1 class="login-title" style="color: #f26430">Connexion</h1>
+                                        {% if error %}
+                                            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                                        {% endif %}
+                                        <div class="field input-field">
+                                            <input type="email" placeholder="Email" name="email" class="input" value="{{ last_username }}" autocomplete="email" required autofocus />
+                                        </div>
+
+                                        <div class="field input-field">
+                                            <input type="password" name="password" placeholder="Mot de passe" class="password" autocomplete="current-password" required />
+                                            <i class="bx bx-hide eye-icon"></i>
+                                        </div>
+
+                                        <div class="field button-field">
+                                            <button type="submit" class="btn btn-primary">Se connecter</button>
+                                        </div>
+                                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
+                                    </form>
+
+                                    <div class="form-link">
+                                        <span>Vous n'avez pas un compte? <a href="{{ path('app_register') }}" class="link signup-link">S'inscrire</a></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 mt-3">
+                                <img src="{{ asset('img/client01.png') }}" alt="" style="width: 100%; height: auto;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}

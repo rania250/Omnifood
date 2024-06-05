@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+    <head>
+        <meta charset="UTF-8">
+        <title>Inscription!</title>
+        <link href="{{ asset('js/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
+        <link href="{{ asset('js/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet" />
+        <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    </head>
+    <main id="main" class="main-signup">
+        <!-- ======= Our login ======= -->
+        <section class="section">
+            <div class="row d-flex justify-content-center align-items-center" style="margin-top: 50px;">
+                <div class="col-lg-8">
+                    <div class="shadow p-3 mb-5 bg-white rounded" style="padding: 20px;">
+                        <div class="row">
+                            <div class="col-lg-6 d-flex justify-content-center align-items-center">
+                                <div class="form form-content">
+                                    {{ form_start(registrationForm, {'attr': {'enctype': 'multipart/form-data'}}) }}
+                                    <h1 class="login-title" style="color: #f26430">Inscription</h1>
+
+                                    <div class="field input-field">
+                                        {{ form_widget(registrationForm.full_name, {
+                                            'attr': {'placeholder': 'Nom complet', 'class': 'input'}
+                                        }) }}
+                                    </div>
+
+                                    <div class="field input-field">
+                                        {{ form_widget(registrationForm.email, {
+                                            'attr': {'placeholder': 'Email', 'class': 'input'}
+                                        }) }}
+                                    </div>
+
+                                    <div class="field input-field">
+                                        {{ form_widget(registrationForm.photo_profil, {
+                                            'attr': {'class': 'form-control-file'}
+                                        }) }}
+                                    </div>
+
+                                    <div class="field input-field">
+                                        {{ form_widget(registrationForm.plainPassword, {
+                                            'attr': {'placeholder': 'Mot de passe', 'class': 'password'}
+                                        }) }}
+                                        <i class="bx bx-hide eye-icon"></i>
+                                    </div>
+
+                                    <div class="field input-field">
+                                        {{ form_widget(registrationForm.confirmPassword, {
+                                            'attr': {'placeholder': 'Confirmer mot de passe', 'class': 'password'}
+                                        }) }}
+                                        <i class="bx bx-hide eye-icon"></i>
+                                    </div>
+
+                                    <div class="field button-field">
+                                        <button type="submit" class="btn btn-primary">S'inscrire</button>
+                                    </div>
+                                    {{ form_end(registrationForm) }}
+
+                                    <div class="form-link">
+                                        <span>Vous avez déjà un compte?
+                                            <a href="{{ path('app_login') }}" class="link signup-link">Se connecter</a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 mt-3">
+                                <img src="{{ asset('img/client01.png') }}" alt="" style="width: 100%; height: auto;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+            const pwShowHide = document.querySelectorAll(".eye-icon");
+
+            pwShowHide.forEach((eyeIcon) => {
+                eyeIcon.addEventListener("click", () => {
+                    let pwFields = eyeIcon.closest('.input-field').querySelectorAll(".password");
+
+                    pwFields.forEach((password) => {
+                        if (password.type === "password") {
+                            password.type = "text";
+                            eyeIcon.classList.replace("bx-hide", "bx-show");
+                        } else {
+                            password.type = "password";
+                            eyeIcon.classList.replace("bx-show", "bx-hide");
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+{% endblock %}

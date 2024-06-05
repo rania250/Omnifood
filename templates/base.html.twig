@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+    <title>{% block title %}Omnifood{% endblock %}</title>
+
+    <!-- CSS Files -->
+    <link href="{{ asset('js/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('js/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet" />
+    <!-- Template Main CSS File -->
+    <link href="{{ asset('css/main.css') }}" rel="stylesheet" />
+    <!-- Boxicons CSS -->
+    <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet" />
+</head>
+
+<body>
+
+
+<main id="main">
+    {% block body %}{% endblock %}
+</main>
+
+<!-- Template Main JS File -->
+<script src="{{ asset('js/main.js') }}"></script>
+</body>
+</html>
