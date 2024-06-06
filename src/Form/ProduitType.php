@@ -73,7 +73,9 @@ class ProduitType extends AbstractType
             ])
             ->add('categorie', EntityType::class, [
                 'class' => Categorie::class,
-                'choice_label' => 'nom', // Affichez le nom de la catégorie au lieu de l'ID
+                'choice_label' => function (Categorie $categorie) {
+                    return $categorie->getNom();
+                },
                 'label' => 'Catégorie du produit',
                 'required' => true,
             ])

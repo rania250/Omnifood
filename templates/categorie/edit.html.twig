@@ -80,11 +80,8 @@
                     </div>
 
                     <div class="field input-field">
-                        <div class="color-picker-container">
-                            <div class="color-picker" style="background-color: {{ form.couleur.vars.value }}"></div>
-                            {{ form_widget(form.couleur, {'attr': {'class': 'input'}}) }}
-                            <span class="color-text">Couleur de la catégorie</span>
-                        </div>
+                        <div class="" style="margin-left: 20px;"></div>
+                        {{ form_widget(form.couleur, {'attr': {'class': 'input', 'type': 'hidden'}}) }}
                     </div>
 
                     <div class="field button-field">

@@ -105,4 +105,8 @@ class Categorie
 
         return $this;
     }
+    public function __toString()
+    {
+        return $this->nom; // Utiliser la propriété nom comme représentation de chaîne
+    }
 }
