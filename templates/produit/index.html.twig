@@ -1,41 +1,50 @@
-{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('css/general.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/ProduitCart.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/queries.css') }}" />
+{% endblock %}
 
-{% block title %}Produit index{% endblock %}
+{% block javascripts %}
+    <script type="module" src="https://unpkg.com/ionicons@5.4.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.4.0/dist/ionicons/ionicons.js"></script>
+    <script defer src="https://unpkg.com/smoothscroll-polyfill@0.4.4/dist/smoothscroll.min.js"></script>
+    <script defer src="{{ asset('js/script.js') }}"></script>
+{% endblock %}
 
 {% block body %}
-    <h1>Produit index</h1>
+    <main>
+        <section class="section-meals" id="Menu">
+            <div class="container center-text">
+                <span class="subheading">Produits</span>
+                <div class="shop">
+                    <h2 class="heading-secondary">Produits de la catégorie</h2>
+                    <div class="shopping-cart-container">
+                        <a href="">
+                            <img src="{{ asset('img/shopping.svg') }}" class="shopping-cart" alt="Shopping Cart" />
+                            <span class="quantity">0</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Ingredients</th>
-                <th>Image</th>
-                <th>Prix</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for produit in produits %}
-            <tr>
-                <td>{{ produit.id }}</td>
-                <td>{{ produit.nom }}</td>
-                <td>{{ produit.ingredients }}</td>
-                <td>{{ produit.image }}</td>
-                <td>{{ produit.prix }}</td>
-                <td>
-                    <a href="{{ path('app_produit_show', {'id': produit.id}) }}">show</a>
-                    <a href="{{ path('app_produit_edit', {'id': produit.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_produit_new') }}">Create new</a>
+            <div class="container grid grid--3-cols margin-bottom-md" style="margin-top: 7rem">
+                {% for produit in produits %}
+                    <div class="meal">
+                        <img src="{{ asset('uploads/' ~ produit.image) }}" class="meal-img" alt="{{ produit.nom }}" />
+                        <div class="meal-content">
+                            <p class="meal-title">{{ produit.nom }}</p>
+                            <p class="meal-ingredients">{{ produit.ingredients }}</p>
+                            <p class="meal-price">€{{ produit.prix }}</p>
+                            <button class="cart">Ajouter au panier</button>
+                        </div>
+                    </div>
+                {% else %}
+                    <p>Aucun produit trouvé.</p>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+    <a href="{{ path('app_produit_new') }}" class="btn-primary">Créer un nouveau produit</a>
 {% endblock %}
