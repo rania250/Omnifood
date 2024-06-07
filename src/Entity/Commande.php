@@ -92,7 +92,7 @@ class Commande
 
         /** @var ProduitCommande $produitCommande */
         foreach ($this->produitCommandes as $produitCommande) {
-            $total += $produitCommande->getPrix(); // Supposons que getPrix() renvoie le prix unitaire du produit
+            $total += $produitCommande->getPrix() * $produitCommande->getQuantite();
         }
 
         return $total;

@@ -21,9 +21,9 @@
                 <div class="shop">
                     <h2 class="heading-secondary">Produits de la catégorie</h2>
                     <div class="shopping-cart-container">
-                        <a href="">
+                        <a href="{{ path('panier_index') }}">
                             <img src="{{ asset('img/shopping.svg') }}" class="shopping-cart" alt="Shopping Cart" />
-                            <span class="quantity">0</span>
+                            <span class="quantity">{{ totalQuantity }}</span>
                         </a>
                     </div>
                 </div>
@@ -35,16 +35,19 @@
                         <img src="{{ asset('uploads/' ~ produit.image) }}" class="meal-img" alt="{{ produit.nom }}" />
                         <div class="meal-content">
                             <p class="meal-title">{{ produit.nom }}</p>
-                            <p class="meal-ingredients">{{ produit.ingredients }}</p>
-                            <p class="meal-price">€{{ produit.prix }}</p>
-                            <button class="cart">Ajouter au panier</button>
+                            <div class="meal-ingredients">
+                                {{ produit.ingredients }}
+                            </div>
+                            {% set prixDivise = produit.prix / 100 %}
+                            <p class="meal-price">€{{ prixDivise }}</p>
+                            <a href="{{ path('panier_add', {id: produit.id}) }}" class="btn cart">Ajouter au panier</a>
                         </div>
                     </div>
                 {% else %}
                     <p>Aucun produit trouvé.</p>
                 {% endfor %}
+
             </div>
         </section>
     </main>
-    <a href="{{ path('app_produit_new') }}" class="btn-primary">Créer un nouveau produit</a>
 {% endblock %}
