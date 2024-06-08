@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commande{% endblock %}
+
+{% block body %}
+    <h1>Commande</h1>
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ commande.id }}</td>
+        </tr>
+
+        <tr>
+        <th>Totale</th>
+            <td>{{ commande.totale }}</td>
+        </tr>
+        <tr>
+            <th>Status</th>
+            <td>{{ commande.status }}</td>
+        </tr>
+        <tr>
+            <th>Remarque</th>
+            <td>{{ commande.remarque }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+{% endblock %}

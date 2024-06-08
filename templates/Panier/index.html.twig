@@ -45,7 +45,16 @@
                     </tr>
                     </tfoot>
                 </table>
-                <a href="{{ path('commande_add') }}" class="btn btn-primary">Valider le panier</a>
+                <!-- panier.html.twig -->
+
+                <!-- Ajoutez un champ pour la remarque -->
+                <form method="post" action="{{ path('commande_add') }}">
+                    <label>
+                        <textarea name="remarque" placeholder="Ajouter une remarque"></textarea>
+                    </label>
+                    <button type="submit" class="btn btn-primary">Valider le panier</button>
+                </form>
+
             </div>
         </section>
     </main>

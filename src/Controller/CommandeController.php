@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CommandeController extends AbstractController
 {
     #[Route('/ajout', name: 'commande_add', methods: ['GET', 'POST'])]
-    public function new(SessionInterface $session, ProduitRepository $produitRepository, EntityManagerInterface $entityManager): Response
+    public function new(SessionInterface $session, Request $request, ProduitRepository $produitRepository, EntityManagerInterface $entityManager): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
 
@@ -26,14 +26,17 @@ class CommandeController extends AbstractController
 
         if ($panier === []) {
             $this->addFlash('message', 'Votre panier est vide');
-            return $this->redirectToRoute('main');
+            return $this->redirectToRoute('app_home');
         }
+
+        $remarque = $request->request->get('remarque');
 
         $commande = new Commande();
         $commande->setCreatedAt(new \DateTime());
         $commande->setUpdatedAt(new \DateTime());
         $commande->setTotale(0.0);
         $commande->setStatus('En cours');
+        $commande->setRemarque($remarque);
         $commande->setUser($currentUser);
 
         // Parcourir les éléments du panier et les ajouter à la commande
