@@ -34,8 +34,7 @@
                                         </label>
                                     </div>
                                     <button type="button" class="btn btn-primary ml-4" style="background-color: #f26430; border: 2px solid #f26430; font-size: 1.25rem;">
-                                        Déconnexion
-                                    </button>
+                                        <a href="{{ path('app_logout') }}" >Déconnexion</a>                                    </button>
                                 </div>
                                 <hr class="border-light m-0">
                                 <div class="card-body">
@@ -47,10 +46,22 @@
                                         <b><label class="form-label" style="font-size: 1.5rem;">E-mail</label></b>
                                         <p class="form-control-plaintext" style="font-size: 1.25rem;">{{ user.email }}</p>
                                     </div>
+
+                                    <div class="form-group">
+                                        <b><label class="form-label" style="font-size: 1.5rem;">Adresse</label></b>
+                                        <p class="form-control-plaintext" style="font-size: 1.25rem;">{{ user.adresse }}</p>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <b><label class="form-label" style="font-size: 1.5rem;">Téléphone</label></b>
+                                        <p class="form-control-plaintext" style="font-size: 1.25rem;">{{ user.telephone }}</p>
+                                    </div>
+
                                     <div class="form-group">
                                         <b><label class="form-label" style="font-size: 1.5rem;">Date de création du compte :</label></b>
-                                        <p class="form-control-plaintext" style="font-size: 1.25rem;">{{ user.dateInscription ? user.dateInscription|date('d/m/Y') : 'N/A' }}</p>
+                                        <p class="form-control-plaintext" style="font-size: 1.25rem;">{{ user.dateInscription ? user.dateInscription|date('d/m/Y H:i:s') : 'N/A' }}</p>
                                     </div>
+
                                     <div class="form-group">
                                         <a href="{{ path('app_edit_profile') }}" class="btn btn-primary" style="background-color: #f26430; border: 2px solid #f26430; font-size: 1.25rem;">Modifier le profil</a>
                                         &nbsp;

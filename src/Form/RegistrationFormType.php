@@ -28,6 +28,29 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
+            ->add('adresse', TextType::class, [
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez entrer votre adresse',
+                    ]),
+                    new Length([
+                        'max' => 255,
+                        'maxMessage' => 'Votre adresse ne peut pas dépasser {{ limit }} caractères',
+                    ]),
+                ],
+            ])
+            ->add('telephone', TextType::class, [
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez entrer votre numéro de téléphone',
+                    ]),
+                    new Length([
+                        'min' => 10,
+                        'max' => 10,
+                        'exactMessage' => 'Le numéro de téléphone doit contenir exactement {{ limit }} chiffres',
+                    ]),
+                ],
+            ])
             ->add('photo_profil', FileType::class, [
                 'label' => 'Photo de profil (fichier image)',
                 'mapped' => false,
@@ -43,7 +66,6 @@ class RegistrationFormType extends AbstractType
                     ])
                 ],
             ])
-
             ->add('plainPassword', PasswordType::class, [
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password'],

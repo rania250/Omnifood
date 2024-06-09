@@ -1,3 +1,4 @@
+// main.js
 document.addEventListener("DOMContentLoaded", function() {
     console.log("Script loaded and DOM fully parsed.");
     const pwShowHide = document.querySelectorAll(".eye-icon");
@@ -13,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     eyeIcon.classList.replace("bx-hide", "bx-show");
                     console.log("Password field changed to text");
                 } else {
-                    password.type = "password";
+                    password.type = "password"; // Correction: Suppression du ")" en trop
                     eyeIcon.classList.replace("bx-show", "bx-hide");
                     console.log("Password field changed to password");
                 }

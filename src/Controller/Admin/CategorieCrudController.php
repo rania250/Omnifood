@@ -10,6 +10,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 
 class CategorieCrudController extends AbstractCrudController
 {
@@ -19,6 +20,7 @@ class CategorieCrudController extends AbstractCrudController
     }
     public function configureCrud(Crud $crud): Crud
     {
+
         return $crud->setPageTitle(Crud::PAGE_INDEX, 'Categorie');
     }
 

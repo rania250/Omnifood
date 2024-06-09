@@ -1,0 +1,6 @@
+{# templates/admin/fields/user_profile_picture.html.twig #}
+{% if entity.getInstance().getUser() and entity.getInstance().getUser().getPhotoProfil() %}
+    <img src="{{ asset(entity.getInstance().getUser().getPhotoProfil()) }}" alt="{{ entity.getInstance().getUser().getFullName() }}" class="user-profile-picture" style="max-width: 50px; max-height: 50px; border-radius: 50%;">
+{% else %}
+    <span>Aucune photo</span>
+{% endif %}

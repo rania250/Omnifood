@@ -1,61 +1,78 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Mon Panier{% endblock %}
+
 {% block body %}
-    <main class="container">
-        <section class="row">
-            <div class="col-12">
-                <h1>Panier</h1>
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>Produit</th>
-                        <th>Prix</th>
-                        <th>Quantité</th>
-                        <th>Total</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
+    <main>
+        <div class="main">
+            <section class="panier">
+                <h1><b>Panier</b></h1>
+                <hr />
+                {% if data is empty %}
+                    <p>Votre panier est vide</p>
+                {% else %}
+                    <div class="commande">
+                        <p style=" margin-left: 8rem"><b>Produit</b></p>
+                        <p style=" margin-left: 1rem"><b>Prix</b></p>
+                        <p><b>Quantité</b></p>
+                        <p style=" margin-right: 3rem"><b>Total</b></p>
+                        <p><b></b></p>
+                    </div>
                     {% for element in data %}
-                        <tr>
-                            <td>{{ element.produit.nom }}</td>
-                            <td>{{ element.produit.prix / 100 }} €</td>
-                            <td>{{ element.quantite }}</td>
-                            <td>{{ element.quantite * element.produit.prix / 100 }} €</td>
-                            <td>
-                                <a href="{{ path('panier_add', {id: element.produit.id}) }}" class="btn btn-success">+</a>
-                                <a href="{{ path('panier_remove', {id: element.produit.id}) }}" class="btn btn-warning">-</a>
-                                <a href="{{ path('panier_delete', {id: element.produit.id}) }}" class="btn btn-danger">Supprimer</a>
-                            </td>
-                        </tr>
+                        <div class="commande">
+                            <p><img class="" alt="{{ element.produit.nom }}" style="height: 5rem; width:5rem; margin-right: 4rem" src="{{ asset('uploads/' ~ element.produit.image) }}" />
+                                {{ element.produit.nom }}</p>
+                            <p>{{ element.produit.prix / 100 }} €</p>
+                            <div class="quantite">
+                                <a href="{{ path('panier_remove', {id: element.produit.id}) }}" class="btn-quantite moins"><i class='bx bx-minus'></i></a>
+                                <span class="nombre">{{ element.quantite }}</span>
+                                <a href="{{ path('panier_add', {id: element.produit.id}) }}" class="btn-quantite plus"><i class='bx bx-plus'></i></a>
+                            </div>
+                            <p>{{ element.quantite * element.produit.prix / 100 }} €</p>
+                            <a href="{{ path('panier_delete', {id: element.produit.id}) }}" class="btn1 supprimer"><i class='bx bx-x'></i></a>
+                        </div>
+                        <hr />
                     {% endfor %}
-                    {% if data is empty %}
-                        <tr>
-                            <td colspan="5">Votre panier est vide</td>
-                        </tr>
-                    {% endif %}
-                    </tbody>
-                    <tfoot>
-                    <tr>
-                        <td colspan="3">Total</td>
-                        <td>{{ total }} €</td>
-                        <td>
-                            <a href="{{ path('panier_vide') }}" class="btn btn-danger">Vider</a>
-                        </td>
-                    </tr>
-                    </tfoot>
-                </table>
-                <!-- panier.html.twig -->
-
-                <!-- Ajoutez un champ pour la remarque -->
+                    <div class="buttons">
+                        <a href="{{ path('panier_vide') }}" class="btn2 vider">Vider</a>
+                    </div>
+                {% endif %}
+            </section>
+            <section class="resume">
+                <h1><b>Résumé</b></h1>
+                <hr />
+                <p>Articles commandés:</p>
+                {% for element in data %}
+                    <p>{{ element.quantite }} × {{ element.produit.nom }}</p>
+                {% endfor %}
+                <hr />
+                {% set totalQuantite = 0 %}
+                {% for element in data %}
+                    {% set totalQuantite = totalQuantite + element.quantite %}
+                {% endfor %}
+                <p>Nombre total de produits: {{ totalQuantite }}</p>
+                <br />
+                <p>Total: {{ total }} €</p>
+                <hr />
+                <div class="expedition">
+                    <label for="expedition">Expédition</label>
+                    <select id="expedition" name="expedition">
+                        <option value="livraison">Livraison</option>
+                    </select>
+                </div>
+                <hr />
+                <div class="remarque">
+                    <label for="remarque">Remarque</label>
+                    <textarea id="remarque" name="remarque" rows="4" placeholder="Ajoutez une remarque"></textarea>
+                </div>
+                <hr />
+                <p>Prix total</p>
+                <br />
+                <p class="total">{{ total }} €</p>
                 <form method="post" action="{{ path('commande_add') }}">
-                    <label>
-                        <textarea name="remarque" placeholder="Ajouter une remarque"></textarea>
-                    </label>
-                    <button type="submit" class="btn btn-primary">Valider le panier</button>
+                    <button type="submit" class="btn3 valider">Valider</button>
                 </form>
-
-            </div>
-        </section>
+            </section>
+        </div>
     </main>
 {% endblock %}

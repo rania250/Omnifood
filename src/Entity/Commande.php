@@ -163,4 +163,25 @@ class Commande
 
         return $this;
     }
+
+    // Dans votre entité Commande
+
+    public function getStatusBadge(): string
+    {
+        switch ($this->status) {
+            case 'en_attente':
+                return '<span class="badge badge-warning">En attente</span>';
+            case 'en_cours':
+                return '<span class="badge badge-info">En cours de préparation</span>';
+            case 'prete_livraison':
+                return '<span class="badge badge-primary">Prête à être livrée</span>';
+            case 'livree':
+                return '<span class="badge badge-success">Livrée</span>';
+            case 'annulee':
+                return '<span class="badge badge-danger">Annulée</span>';
+            default:
+                return '';
+        }
+    }
+
 }

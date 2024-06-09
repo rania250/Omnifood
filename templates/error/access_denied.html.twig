@@ -1,0 +1,13 @@
+{# templates/error/access_denied.html.twig #}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Access Denied</title>
+</head>
+<body>
+<h1>Access Denied</h1>
+<p>{{ app.session.flashBag.get('error')|first }}</p>
+<a href="{{ path('app_login') }}">Login</a>
+</body>
+</html>

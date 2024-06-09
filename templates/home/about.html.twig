@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <section class="section-how" id="how">
+        <div class="container">
+            <span class="subheading">Étapes</span>
+            <h2 class="heading-secondary">
+                Votre dose quotidienne de santé
+            </h2>
+        </div>
+
+        <div class="container grid grid--2-cols grid--center-v">
+            <div class="step-text-box">
+                <p class="step-number">01</p>
+                <h3 class="heading-tertiary">
+                    Se connecter
+                </h3>
+                <p class="step-description">
+                    Connectez-vous à votre compte pour accéder à vos préférences et commencer à personnaliser vos repas.
+                </p>
+            </div>
+
+            <div class="step-img-box">
+                <img
+                        src="{{ asset('img/connexionn.png') }}"
+                        class="step-img"
+                        alt="Écran de sélection des préférences de l'application iPhone"
+                        style="width:350px  ; border-radius: 12px"
+
+                />
+            </div>
+            <div class="step-img-box">
+                <img
+                        src="{{ asset('img/produit.png') }}"
+                        class="step-img"
+                        alt="Écran de planification des repas de l'application iPhone"
+                        style="width:350px  ; border-radius: 12px"
+                />
+            </div>
+            <div class="step-text-box">
+                <p class="step-number">02</p>
+                <h3 class="heading-tertiary">Choisir votre menu</h3>
+                <p class="step-description">
+                    Choisissez et approuvez votre menu hebdomadaire personnalisé. Vous pouvez modifier les ingrédients, échanger des repas ou ajouter vos propres recettes.
+                </p>
+            </div>
+
+            <div class="step-text-box">
+                <p class="step-number">03</p>
+                <h3 class="heading-tertiary">Commander & Payer </h3>
+                <p class="step-description">
+                    Les meilleurs chefs de la ville préparent vos repas sélectionnés chaque jour, et nous les livrons à votre porte à l'heure qui vous convient le mieux. Vous pouvez modifier l'horaire et l'adresse de livraison quotidiennement !
+                </p>
+            </div>
+            <div class="step-img-box">
+                <img
+                        src="{{ asset('img/panier.png') }}"
+                        class="step-img"
+                        alt="Écran de livraison de l'application iPhone"
+                        style="width:350px ; border-radius: 12px "
+
+                />
+            </div>
+        </div>
+    </section>
+{% endblock %}

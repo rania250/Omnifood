@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Categorie;
 use App\Entity\Produit;
 use App\Entity\User;
 use App\Form\ProduitType;
@@ -15,6 +16,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Mime\MimeTypes;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 #[Route('/produit')]
 class ProduitController extends AbstractController
@@ -69,43 +71,58 @@ class ProduitController extends AbstractController
             'produit' => $produit,
         ]);
     }
-
-   /* #[Route('/{id}/edit', name: 'app_produit_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Produit $produit, EntityManagerInterface $entityManager): Response
+    #[Route('/categorie/{id}', name: 'app_produit_by_categorie', methods: ['GET'])]
+    #[ParamConverter('categorie', class: Categorie::class)]
+    public function produitsByCategorie(Categorie $categorie, ProduitRepository $produitRepository, SessionInterface $session): Response
     {
-        $form = $this->createForm(ProduitType::class, $produit);
-        $form->handleRequest($request);
+        $produits = $produitRepository->findBy(['categorie' => $categorie]);
+        $panier = $session->get('panier', []);
+        $totalQuantity = array_sum($panier);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $file = $form->get('image')->getData();
-
-            if ($file instanceof UploadedFile) {
-                // Gérer le téléchargement du fichier
-                $fileName = $this->uploadContenu($file);
-                // Mettre à jour le contenu de la recette avec le nom du fichier
-                $produit->setImage($fileName);
-            }
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('produit/edit.html.twig', [
-            'produit' => $produit,
-            'form' => $form,
+        return $this->render('produit/by_categorie.html.twig', [
+            'produits' => $produits,
+            'totalQuantity' => $totalQuantity,
+            'categorie' => $categorie
         ]);
     }
 
-    #[Route('/{id}', name: 'app_produit_delete', methods: ['POST'])]
-    public function delete(Request $request, Produit $produit, EntityManagerInterface $entityManager): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$produit->getId(), $request->getPayload()->get('_token'))) {
-            $entityManager->remove($produit);
-            $entityManager->flush();
-        }
 
-        return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
-    }*/
+    /* #[Route('/{id}/edit', name: 'app_produit_edit', methods: ['GET', 'POST'])]
+     public function edit(Request $request, Produit $produit, EntityManagerInterface $entityManager): Response
+     {
+         $form = $this->createForm(ProduitType::class, $produit);
+         $form->handleRequest($request);
+
+         if ($form->isSubmitted() && $form->isValid()) {
+             $file = $form->get('image')->getData();
+
+             if ($file instanceof UploadedFile) {
+                 // Gérer le téléchargement du fichier
+                 $fileName = $this->uploadContenu($file);
+                 // Mettre à jour le contenu de la recette avec le nom du fichier
+                 $produit->setImage($fileName);
+             }
+             $entityManager->flush();
+
+             return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
+         }
+
+         return $this->render('produit/edit.html.twig', [
+             'produit' => $produit,
+             'form' => $form,
+         ]);
+     }
+
+     #[Route('/{id}', name: 'app_produit_delete', methods: ['POST'])]
+     public function delete(Request $request, Produit $produit, EntityManagerInterface $entityManager): Response
+     {
+         if ($this->isCsrfTokenValid('delete'.$produit->getId(), $request->getPayload()->get('_token'))) {
+             $entityManager->remove($produit);
+             $entityManager->flush();
+         }
+
+         return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
+     }*/
 
     private function uploadContenu(UploadedFile $file): string
     {

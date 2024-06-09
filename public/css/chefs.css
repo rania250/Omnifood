@@ -1,0 +1,64 @@
+.container {
+    text-align: center;
+    padding: 50px 20px;
+}
+.container h2{
+    font-size: 4rem;
+}
+.container p{
+    font-size: 1.7rem;
+}
+.highlight {
+    color: #f39c12;
+}
+
+.description p{
+    font-size: 2rem;
+    color: #777;
+    margin-bottom: 50px;
+}
+
+.chef-cards {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.chef-card {
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 350px;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.chef-card img {
+    width: 100%;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+.chef-card h2 {
+    font-size: 2.5em;
+    color: #333;
+    margin: 0;
+}
+
+.title {
+    font-size: 1.5rem;
+    color: #f39c12;
+    margin: 10px 0;
+}
+
+.social-icons a {
+    color: #333;
+    margin: 0 10px;
+    font-size: 1.2em;
+    transition: color 0.3s;
+}
+
+.social-icons a:hover {
+    color: #f39c12;
+}

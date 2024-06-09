@@ -1,8 +1,12 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Connexion{% endblock %}
-
 {% block body %}
+    <head>
+        <meta charset="UTF-8">
+        <title>Inscription!</title>
+        <link href="{{ asset('js/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
+        <link href="{{ asset('js/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet" />
+        <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    </head>
     <main id="main" class="main-login">
         <section class="section">
             <div class="row d-flex justify-content-center align-items-center" style="margin-top: 50px;">
@@ -45,4 +49,26 @@
             </div>
         </section>
     </main>
+
+    <script type="text/javascript">
+            document.addEventListener("DOMContentLoaded", function() {
+                const pwShowHide = document.querySelectorAll(".eye-icon");
+
+                pwShowHide.forEach((eyeIcon) => {
+                    eyeIcon.addEventListener("click", () => {
+                        let pwFields = eyeIcon.closest('.input-field').querySelectorAll(".password");
+
+                        pwFields.forEach((password) => {
+                            if (password.type === "password") {
+                                password.type = "text";
+                                eyeIcon.classList.replace("bx-hide", "bx-show");
+                            } else {
+                                password.type = "password";
+                                eyeIcon.classList.replace("bx-show", "bx-hide");
+                            }
+                        });
+                    });
+                });
+            });
+        </script>
 {% endblock %}

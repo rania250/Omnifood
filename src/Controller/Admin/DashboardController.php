@@ -3,22 +3,25 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Categorie;
+use App\Entity\Commande;
 use App\Entity\Produit;
 use App\Entity\User;
+use App\Repository\CommandeRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DashboardController extends AbstractDashboardController
 {
-    private AdminUrlGenerator $adminUrlGenerator;
+    private CommandeRepository $commandeRepository;
 
-    public function __construct(AdminUrlGenerator $adminUrlGenerator)
+    public function __construct(CommandeRepository $commandeRepository)
     {
-        $this->adminUrlGenerator = $adminUrlGenerator;
+        $this->commandeRepository = $commandeRepository;
     }
 
     #[Route('/admin', name: 'admin')]
@@ -28,11 +31,30 @@ class DashboardController extends AbstractDashboardController
             return $this->redirectToRoute('app_login');
         }
 
-        $url = $this->adminUrlGenerator
-            ->setController(CategorieCrudController::class)
-            ->generateUrl();
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('access_denied');
+        }
 
-        return $this->redirect($url);
+        $pendingOrders = $this->commandeRepository->countPendingOrders();
+        $validatedOrders = $this->commandeRepository->countValidatedOrders();
+        $canceledOrders = $this->commandeRepository->countCanceledOrders();
+        $deliveredOrders = $this->commandeRepository->countDeliveredOrders();
+
+        return $this->render('admin/dashboard.html.twig', [
+            'pendingOrders' => $pendingOrders,
+            'validatedOrders' => $validatedOrders,
+            'canceledOrders' => $canceledOrders,
+            'deliveredOrders' => $deliveredOrders,
+        ]);
+    }
+
+    #[Route('/admin/check-new-orders', name: 'admin_check_new_orders')]
+    public function checkNewOrders(SessionInterface $session): JsonResponse
+    {
+        $newOrders = $session->get('new_orders', []);
+        $session->remove('new_orders');  // Clear new orders after fetching
+
+        return new JsonResponse($newOrders);
     }
 
     public function configureDashboard(): Dashboard
@@ -47,5 +69,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Categorie', 'fas fa-list', Categorie::class);
         yield MenuItem::linkToCrud('Produits', 'fas fa-box', Produit::class);
         yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-users', User::class);
+        yield MenuItem::section('Gestion des commandes');
+        yield MenuItem::linkToCrud('Commandes', 'fas fa-shopping-cart', Commande::class);
     }
 }

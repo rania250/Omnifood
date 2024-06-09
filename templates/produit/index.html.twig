@@ -14,40 +14,40 @@
 {% endblock %}
 
 {% block body %}
-    <main>
-        <section class="section-meals" id="Menu">
-            <div class="container center-text">
-                <span class="subheading">Produits</span>
-                <div class="shop">
-                    <h2 class="heading-secondary">Produits de la catégorie</h2>
-                    <div class="shopping-cart-container">
-                        <a href="{{ path('panier_index') }}">
-                            <img src="{{ asset('img/shopping.svg') }}" class="shopping-cart" alt="Shopping Cart" />
-                            <span class="quantity">{{ totalQuantity }}</span>
-                        </a>
-                    </div>
+<main>
+    <section class="section-meals" id="Menu">
+        <div class="container center-text">
+            <span class="subheading">Produits</span>
+            <div class="shop">
+                <h2 class="heading-secondary">Produits de la catégorie</h2>
+                <div class="shopping-cart-container">
+                    <a href="{{ path('panier_index') }}">
+                        <img src="{{ asset('img/shopping.svg') }}" class="shopping-cart" alt="Shopping Cart" />
+                        <span class="quantity">{{ totalQuantity }}</span>
+                    </a>
                 </div>
             </div>
+        </div>
 
-            <div class="container grid grid--3-cols margin-bottom-md" style="margin-top: 7rem">
-                {% for produit in produits %}
-                    <div class="meal">
-                        <img src="{{ asset('uploads/' ~ produit.image) }}" class="meal-img" alt="{{ produit.nom }}" />
-                        <div class="meal-content">
-                            <p class="meal-title">{{ produit.nom }}</p>
-                            <div class="meal-ingredients">
-                                {{ produit.ingredients }}
-                            </div>
-                            {% set prixDivise = produit.prix / 100 %}
-                            <p class="meal-price">€{{ prixDivise }}</p>
-                            <a href="{{ path('panier_add', {id: produit.id}) }}" class="btn cart">Ajouter au panier</a>
+        <div class="container grid grid--3-cols margin-bottom-md" style="margin-top: 7rem">
+            {% for produit in produits %}
+                <div class="meal1" >
+                    <img src="{{ asset('uploads/' ~ produit.image) }}" class="meal-img1" alt="{{ produit.nom }}" />
+                    <div class="meal-content1">
+                        <p class="meal-title1">{{ produit.nom }}</p>
+                        <div class="meal-ingredients1">
+                            {{ produit.ingredients | raw }}
                         </div>
+                        {% set prixDivise = produit.prix / 100 %}
+                        <p class="meal-price1">€{{ prixDivise }}</p>
+                        <a href="{{ path('panier_add', {id: produit.id}) }}" class="btn cart">Ajouter au panier</a>
                     </div>
-                {% else %}
-                    <p>Aucun produit trouvé.</p>
-                {% endfor %}
+                </div>
+            {% else %}
+                <p>Aucun produit trouvé.</p>
+            {% endfor %}
 
-            </div>
-        </section>
-    </main>
+        </div>
+    </section>
+</main>
 {% endblock %}

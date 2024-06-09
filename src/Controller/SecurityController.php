@@ -2,13 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Form\EditProfileType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mime\MimeTypes;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -46,27 +45,38 @@ class SecurityController extends AbstractController
     }
 
     #[Route(path: '/profile/edit', name: 'app_edit_profile')]
-    public function editProfile(Request $request, UserInterface $user, EntityManagerInterface $em): Response
+    public function editProfile(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(EditProfileType::class, $user);
+        $user = $this->getUser();
 
+        // Vérifier si l'utilisateur est connecté et s'il s'agit d'une instance de la classe User
+        if (!$user instanceof User) {
+            throw new \LogicException('User must be logged in and an instance of User class.');
+        }
+
+
+        $form = $this->createForm(EditProfileType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Mise à jour des informations de l'utilisateur à partir des données soumises par le formulaire
-            $user->setFullName($form->get('fullName')->getData());
-            // Pas besoin de mettre à jour la photo ici, car cela est déjà géré dans la méthode uploadContenu
+            $entityManager->flush();
 
-            // Persist the user entity
-            $em->persist($user);
-            $em->flush();
+            $file = $form->get('photo_profil')->getData();
+
+            if ($file instanceof UploadedFile) {
+                $fileName = $this->uploadContenu($file);
+                $user->setPhotoProfil($fileName);
+            }
+
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Profil mis à jour avec succès.');
 
             return $this->redirectToRoute('app_profile');
         }
 
         return $this->render('security/edit_profile.html.twig', [
-            'form' => $form->createView(),
-            'user' => $user,
+            'form' => $form,
         ]);
     }
 

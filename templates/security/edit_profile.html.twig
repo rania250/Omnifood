@@ -22,16 +22,18 @@
                             <div class="tab-pane fade active show" id="account-general">
                                 <form method="post" enctype="multipart/form-data">
                                     <div class="card-body media align-items-center">
-                                        {% if form.vars.value.getPhotoProfil() %}
-                                            <img src="{{ asset('uploads/' ~ form.vars.value.getPhotoProfil()) }}" alt="Photo de profil" class="d-block ui-w-150" style="width: 150px; height: 150px; border-radius: 50%;">
-                                        {% else %}
-                                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt class="d-block ui-w-150" style="width: 150px; height: 150px; border-radius: 50%;">
-                                        {% endif %}
                                         <div class="media-body ml-5">
-                                            <label class="btn btn-outline-primary" style="color: #f26430; border: 1px solid #f26430; font-size: 1.5rem;">
-                                                Upload new photo
-                                                <input type="file" name="photo" class="account-settings-fileinput">
-                                            </label>
+                                            {% if form.vars.value.getPhotoProfil() %}
+                                                <img src="{{ asset('uploads/' ~ form.vars.value.getPhotoProfil()) }}" alt="Photo de profil" class="d-block ui-w-150" style="width: 150px; height: 150px; border-radius: 50%;">
+                                            {% else %}
+                                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt class="d-block ui-w-150" style="width: 150px; height: 150px; border-radius: 50%;">
+                                            {% endif %}
+                                            <div class="form-group">
+                                                <label class="btn btn-outline-primary" style="color: #f26430; border: 1px solid #f26430; font-size: 1.5rem;">
+                                                    Upload new photo
+                                                    <input type="file" name="photo" class="account-settings-fileinput">
+                                                </label>
+                                            </div>
                                         </div>
                                         <button type="button" class="btn btn-primary ml-4" style="background-color: #f26430; border: 2px solid #f26430; font-size: 1.5rem;">
                                             Déconnexion
@@ -39,20 +41,34 @@
                                     </div>
                                     <hr class="border-light m-0">
                                     <div class="card-body">
+                                        {{ form_start(form) }}
                                         <div class="form-group">
                                             <b><label class="form-label" style="font-size: 1.75rem;">Nom complet</label></b>
-                                            <input type="text" name="fullName" class="form-control" style="font-size: 1.5rem;" value="{{ user.fullName }}">
+                                            {{ form_widget(form.fullName, { 'attr': {'class': 'form-control', 'placeholder': 'Nom complet'} }) }}
                                         </div>
-
-                                        <!-- Autres champs de formulaire pour l'email et d'autres informations -->
                                         <div class="form-group">
-                                            <button type="submit" class="btn btn-primary" style="background-color: #f26430; border: 2px solid #f26430; font-size: 1.5rem;">Enregistrer les modifications</button>
-                                            &nbsp;
-                                            <a href="{{ path('app_profile') }}" class="btn btn-default" style="font-size: 1.5rem;">Annuler</a>
+                                            <b><label class="form-label" style="font-size: 1.75rem;">Email</label></b>
+                                            {{ form_widget(form.email, { 'attr': {'class': 'form-control', 'placeholder': 'Email'} }) }}
                                         </div>
+                                        <div class="form-group">
+                                            <b><label class="form-label" style="font-size: 1.75rem;">Adresse</label></b>
+                                            {{ form_widget(form.adresse, { 'attr': {'class': 'form-control', 'placeholder': 'Adresse'} }) }}
+                                        </div>
+                                        <div class="form-group">
+                                            <b><label class="form-label" style="font-size: 1.75rem;">Téléphone</label></b>
+                                            {{ form_widget(form.telephone, { 'attr': {'class': 'form-control', 'placeholder': 'Téléphone'} }) }}
+                                        </div>
+                                        <div class="form-group">
+                                            {{ form_widget(form.photo_profil, { 'attr': {'class': 'form-control'} }) }}
+                                        </div>
+                                            {{ form_end(form) }}
+
+
+                                        &nbsp;
+                                        <a href="{{ path('app_profile') }}" class="btn btn-default" style="font-size: 1.5rem;">Annuler</a>
+
                                     </div>
                                 </form>
-
                             </div>
                         </div>
                     </div>

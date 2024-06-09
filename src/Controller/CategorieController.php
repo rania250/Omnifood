@@ -5,12 +5,14 @@ namespace App\Controller;
 use App\Entity\Categorie;
 use App\Form\CategorieType;
 use App\Repository\CategorieRepository;
+use App\Repository\ProduitRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Mime\MimeTypes;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -24,45 +26,56 @@ class CategorieController extends AbstractController
             'categories' => $categorieRepository->findAll(),
         ]);
     }
-/*
-    #[Route('/new', name: 'app_categorie_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
 
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+    /*
+        #[Route('/new', name: 'app_categorie_new', methods: ['GET', 'POST'])]
+        public function new(Request $request, EntityManagerInterface $entityManager): Response
+        {
 
-        $categorie = new Categorie();
-        $form = $this->createForm(CategorieType::class, $categorie);
-        $form->handleRequest($request);
+            $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $file = $form->get('image')->getData();
+            $categorie = new Categorie();
+            $form = $this->createForm(CategorieType::class, $categorie);
+            $form->handleRequest($request);
 
-            // Vérifier s'il y a un fichier envoyé
-            if ($file instanceof UploadedFile) { // Vérifie si le fichier est une instance de UploadedFile
-                // Gérer le téléchargement du fichier
-                $fileName = $this->uploadContenu($file);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $file = $form->get('image')->getData();
 
-                // Mettre à jour le contenu de la recette avec le nom du fichier
-                $categorie->setImage($fileName);
+                // Vérifier s'il y a un fichier envoyé
+                if ($file instanceof UploadedFile) { // Vérifie si le fichier est une instance de UploadedFile
+                    // Gérer le téléchargement du fichier
+                    $fileName = $this->uploadContenu($file);
+
+                    // Mettre à jour le contenu de la recette avec le nom du fichier
+                    $categorie->setImage($fileName);
+                }
+                $entityManager->persist($categorie);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('app_categorie_index', [], Response::HTTP_SEE_OTHER);
             }
-            $entityManager->persist($categorie);
-            $entityManager->flush();
 
-            return $this->redirectToRoute('app_categorie_index', [], Response::HTTP_SEE_OTHER);
-        }
+            return $this->render('categorie/new.html.twig', [
+                'categorie' => $categorie,
+                'form' => $form,
+            ]);
+        }*/
 
-        return $this->render('categorie/new.html.twig', [
-            'categorie' => $categorie,
-            'form' => $form,
-        ]);
-    }*/
+
 
     #[Route('/{id}', name: 'app_categorie_show', methods: ['GET'])]
-    public function show(Categorie $categorie): Response
+    public function show(Categorie $categorie, ProduitRepository $productRepository , SessionInterface $session): Response
     {
+        // Récupérer les produits appartenant à cette catégorie
+        $products = $productRepository->findBy(['categorie' => $categorie]);
+        $panier = $session->get('panier', []);
+        $totalQuantity = array_sum($panier);
+
         return $this->render('categorie/show.html.twig', [
             'categorie' => $categorie,
+            'produits' => $products,
+            'totalQuantity' => $totalQuantity,
+
         ]);
     }
 

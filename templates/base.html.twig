@@ -4,25 +4,267 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
-    <title>{% block title %}Omnifood{% endblock %}</title>
+    <title>{% block title %}Foodie{% endblock %}</title>
 
     <!-- CSS Files -->
     <link href="{{ asset('js/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('js/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet" />
+
+
     <!-- Template Main CSS File -->
     <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet" />
     <link href="{{ asset('css/main.css') }}" rel="stylesheet" />
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="{{ asset('css/general.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/styleAcceuil.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/ProduitCart.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/panier.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/queries.css') }}" />
     <!-- Boxicons CSS -->
+
+    <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet" />
+    <link rel="icon" href="{{ asset('img/favicon.png') }}" />
+    <link rel="apple-touch-icon" href="{{ asset('img/apple-touch-icon.png') }}" />
+    <link rel="manifest" href="{{ asset('manifest.webmanifest') }}" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+    />
+    {% block stylesheets %}{% endblock %}
+
+    <style>
+        .nav-item {
+            position: relative;
+            display: inline-block;
+        }
+        .round-image {
+            border-radius: 50%;
+            border: 2px solid white;
+            cursor: pointer;
+        }
+        .submenu {
+            display: none;
+            position: absolute;
+            top: 4.9rem;
+            left: 1rem;
+            font-size:1.2rem;
+            background-color: white;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            padding: 10px 14px;
+            z-index: 1;
+        }
+        .nav-item:hover .submenu {
+            display: block;
+        }
+        .submenu a {
+            color: #e67e22;
+            text-decoration: none;
+            display: block;
+            padding: 8px 0;
+        }
+
+        .submenu a > i {
+            font-size: 2rem;
+        }
+        .submenu a:hover {
+            background-color: #ddd;
+        }
+
+        .map-container {
+            width: 100%;
+            height: 200px;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+    </style>
 </head>
 
 <body>
+{% block header %}
+    <header class="header">
+        <a href="#">
+            <img class="" alt="Foodie logo" style="width: 20rem; margin-top: 4rem;" src="{{ asset('/img/logoo.png') }}" />
+        </a>
+
+        <nav class="main-nav">
+            <ul class="main-nav-list">
+                <li><a class="main-nav-link" href="{{ path('app_about')}}">Guide</a></li>
+                <li><a class="main-nav-link" href="#Menu">Menu</a></li>
+                <li><a class="main-nav-link" href="#chefs">Nos chef</a></li>
+                {% if app.user %}
+                    <ul>
+                        <li class="nav-item">
+                            <a class="main-nav-link" href="{{ path('app_profile') }}">
+                                {% if app.user.getPhotoProfil() %}
+                                    <img  class="round-image"  style="width:5rem;" src="{{ asset('uploads/' ~ app.user.getPhotoProfil()) }}" alt="Photo de profil">
+                                {% else %}
+                                    <img class="round-image" alt="profile"  style="width:6rem;" src="{{ asset('/img/avatar.webp') }}" />
+                                {% endif %}
+                            </a>
+                            <div class="submenu">
+                                <a href="{{ path('app_logout') }}"><i class='bx bx-log-out'></i> logout</a>
+                            </div>
+
+                        </li>
+                    </ul>
+                {% else %}
+                    <li><a class="main-nav-link nav-cta" href="{{path('app_login')  }}">Connexion</a></li>
+                    <li><a class="main-nav-link1 nav-cta1" href="{{ path('app_register') }}">S'inscrire</a></li>
+                {% endif %}
+
+            </ul>
+        </nav>
+
+        <button class="btn-mobile-nav">
+            <ion-icon class="icon-mobile-nav" name="menu-outline"></ion-icon>
+            <ion-icon class="icon-mobile-nav" name="close-outline"></ion-icon>
+        </button>
+    </header>
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <h1>Nos Professionels <span class="highlight">Chefs</span></h1>
+        <p class="description">
+            Nos chefs professionnels, maîtres dans leur art, vous offrent une cuisine exceptionnelle
+
+        </p>
+        <div class="chef-cards">
+            <div class="chef-card">
+                <img src="eating.jpg" alt="Walter White" />
+                <h2>Walter White</h2>
+                <p class="title">Master Chef</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="chef-card">
+                <img src="eating.jpg" alt="Sarah Jhonson" />
+                <h2>Sarah Jhonson</h2>
+                <p class="title">Patissier</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="chef-card">
+                <img src="eating.jpg" alt="William Anderson" />
+                <h2>William Anderson</h2>
+                <p class="title">Cook</p>
+                <div class="social-icons">
+                    <a href="#"><i class="bi bi-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
-<main id="main">
-    {% block body %}{% endblock %}
-</main>
+{% endblock %}
+
+
+
+
+{% block footer %}
+    <footer class="footer">
+        <div class="container grid grid--footer">
+            <div class="logo-col">
+                <a href="#" class="">
+                    <img class="" alt="Foodie logo" style="width: 25rem;" src="{{ asset('/img/logoo.png') }}" />
+                </a>
+
+                <ul class="social-links">
+                    <li>
+                        <a class="footer-link" href="#"
+                        ><ion-icon class="social-icon" name="logo-instagram"></ion-icon
+                            ></a>
+                    </li>
+                    <li>
+                        <a class="footer-link" href="#"
+                        ><ion-icon class="social-icon" name="logo-facebook"></ion-icon
+                            ></a>
+                    </li>
+                    <li>
+                        <a class="footer-link" href="#"
+                        ><ion-icon class="social-icon" name="logo-twitter"></ion-icon
+                            ></a>
+                    </li>
+                </ul>
+
+                <p class="copyright">
+                    Copyright &copy; <span class="year">2023</span> by foodie, Inc.
+                    All rights reserved.
+                </p>
+            </div>
+
+            <div class="address-col">
+                <p class="footer-heading">Contact us</p>
+                <address class="contacts">
+                    <p class="address">La rochelle</p>
+                    <p>
+                        <a class="footer-link" href="tel:+213562178072">+33562178072</a><br />
+                        <a class="footer-link" href="mailto:hello@foodie.com">hello@foodie.com</a>
+                    </p>
+                </address>
+            </div>
+
+
+
+            <nav class="nav-col">
+                <p class="footer-heading">Company</p>
+                <ul class="footer-nav">
+                    <li><a class="footer-link" href="#">About Foodie</a></li>
+                    <li><a class="footer-link" href="#">For Business</a></li>
+                </ul>
+            </nav>
+
+            <nav class="nav-col">
+                <p class="footer-heading">Resources</p>
+                <ul class="footer-nav">
+                    <li><a class="footer-link" href="#">Help center</a></li>
+                    <li><a class="footer-link" href="#">Privacy & terms</a></li>
+                </ul>
+            </nav>
+            <div class="map-col">
+                <p class="footer-heading">Our Location</p>
+                <div class="map-container" style="width: 300px">
+                    <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.086614588086!2d-122.42067948468178!3d37.77492927975927!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80858064c5d5b7eb%3A0xbdbb3d13a6f255e7!2sLa%20Rochelle!5e0!3m2!1sen!2sus!4v1602006857553!5m2!1sen!2sus"
+                            width="100%"
+                            height="200"
+                            frameborder="0"
+                            style="border:0;"
+                            allowfullscreen=""
+                            aria-hidden="false"
+                            tabindex="0"
+                    ></iframe>
+                </div>
+
+            </div>
+        </div>
+
+
+    </footer>
+{% endblock %}
 
 <!-- Template Main JS File -->
 <script src="{{ asset('js/main.js') }}"></script>
+<!-- Additional JS Files -->
+<script type="module" src="https://unpkg.com/ionicons@5.4.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule="" src="https://unpkg.com/ionicons@5.4.0/dist/ionicons/ionicons.js"></script>
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<script defer src="https://unpkg.com/smoothscroll-polyfill@0.4.4/dist/smoothscroll.min.js"></script>
+{% block javascripts %}{% endblock %}
 </body>
 </html>

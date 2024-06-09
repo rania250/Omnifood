@@ -1,7 +1,3 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Inscription{% endblock %}
-
 {% block body %}
     <head>
         <meta charset="UTF-8">
@@ -53,6 +49,17 @@
                                             'attr': {'placeholder': 'Confirmer mot de passe', 'class': 'password'}
                                         }) }}
                                         <i class="bx bx-hide eye-icon"></i>
+                                    </div>
+                                    <div class="field input-field">
+                                        {{ form_widget(registrationForm.adresse, {
+                                            'attr': {'placeholder': 'Adresse', 'class': 'input'}
+                                        }) }}
+                                    </div>
+
+                                    <div class="field input-field">
+                                        {{ form_widget(registrationForm.telephone, {
+                                            'attr': {'placeholder': 'Numéro de téléphone', 'class': 'input'}
+                                        }) }}
                                     </div>
 
                                     <div class="field button-field">

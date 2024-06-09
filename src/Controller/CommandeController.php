@@ -35,7 +35,7 @@ class CommandeController extends AbstractController
         $commande->setCreatedAt(new \DateTime());
         $commande->setUpdatedAt(new \DateTime());
         $commande->setTotale(0.0);
-        $commande->setStatus('En cours');
+        $commande->setStatus('en_attente');
         $commande->setRemarque($remarque);
         $commande->setUser($currentUser);
 
@@ -61,6 +61,9 @@ class CommandeController extends AbstractController
         $entityManager->persist($commande);
         $entityManager->flush();
 
+        $newOrders = $session->get('new_orders', []);
+        $newOrders[] = 'Une nouvelle commande a été créée.';
+        $session->set('new_orders', $newOrders);
         // Vider le panier
         $session->remove('panier');
 

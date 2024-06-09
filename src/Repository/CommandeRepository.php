@@ -41,11 +41,42 @@ class CommandeRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    public function findAllOrderByCreatedAt()
+    public function counPendingOrders(): int
     {
         return $this->createQueryBuilder('c')
-            ->orderBy('c.created_at', 'DESC')
+            ->andWhere('c.status = :status')
+            ->setParameter('status', 'En attente')
+            ->select('COUNT(c.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function findPendingOrders()
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.status = :status')
+            ->setParameter('status', 'en_attente')
             ->getQuery()
             ->getResult();
+    }
+
+    public function countPendingOrders(): int
+    {
+        return $this->count(['status' => 'En cours']);
+    }
+
+    public function countValidatedOrders(): int
+    {
+        return $this->count(['status' => 'Validée']);
+    }
+
+    public function countCanceledOrders(): int
+    {
+        return $this->count(['status' => 'Annulée']);
+    }
+
+    public function countDeliveredOrders(): int
+    {
+        return $this->count(['status' => 'Livrée']);
     }
 }

@@ -22,9 +22,6 @@ class Adresse
     #[ORM\Column(length: 255)]
     private ?string $code_postal = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $pays = null;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -66,15 +63,4 @@ class Adresse
         return $this;
     }
 
-    public function getPays(): ?string
-    {
-        return $this->pays;
-    }
-
-    public function setPays(string $pays): static
-    {
-        $this->pays = $pays;
-
-        return $this;
-    }
 }
