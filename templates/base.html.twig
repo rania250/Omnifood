@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
-    <title>{% block title %}Foodie{% endblock %}</title>
+    <title>{% block title %}Omnifood{% endblock %}</title>
 
     <!-- CSS Files -->
     <link href="{{ asset('js/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
@@ -91,6 +91,7 @@
 
         <nav class="main-nav">
             <ul class="main-nav-list">
+                <li><a class="main-nav-link" href="{{ path('app_home')}}">Acceuil</a></li>
                 <li><a class="main-nav-link" href="{{ path('app_about')}}">Guide</a></li>
                 <li><a class="main-nav-link" href="#Menu">Menu</a></li>
                 <li><a class="main-nav-link" href="#chefs">Nos chef</a></li>
@@ -203,7 +204,7 @@
                 </ul>
 
                 <p class="copyright">
-                    Copyright &copy; <span class="year">2023</span> by foodie, Inc.
+                    Copyright &copy; <span class="year">2023</span> by Omnifood, Inc.
                     All rights reserved.
                 </p>
             </div>
@@ -224,7 +225,7 @@
             <nav class="nav-col">
                 <p class="footer-heading">Company</p>
                 <ul class="footer-nav">
-                    <li><a class="footer-link" href="#">About Foodie</a></li>
+                    <li><a class="footer-link" href="#">About Omnifood</a></li>
                     <li><a class="footer-link" href="#">For Business</a></li>
                 </ul>
             </nav>
