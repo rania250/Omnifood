@@ -1,0 +1,6 @@
+{# templates/admin/fields/user_fullname.html.twig #}
+{% if entity.getInstance().getUser() %}
+    {{ entity.getInstance().getUser().getFullName() }}
+{% else %}
+    <span>Utilisateur inconnu</span>
+{% endif %}

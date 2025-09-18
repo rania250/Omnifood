@@ -1,0 +1,194 @@
+.main {
+    display: flex;
+    justify-content: space-between;
+    width: 75%;
+    margin-left: 20rem;
+    margin-top: 7rem;
+    margin-bottom: 7rem;
+
+
+}
+
+.panier {
+    width: 70%;
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+
+.panier1 {
+    margin-top: 6rem;
+    font-size: 2rem;
+    margin-bottom: 3rem;
+}
+
+.resume {
+    width: 28%;
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.panier h2,
+.resume h2 {
+    font-size: 20px;
+    font-weight: normal;
+    color: #333;
+    margin-top: 0;
+}
+
+.panier p,
+.resume p {
+    font-size: 16px;
+    color: #777;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background: #e0e0e0;
+    margin: 20px 0;
+}
+
+.commande {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.quantite {
+    display: flex;
+    align-items: center;
+}
+
+.btn-quantite {
+    background-color: #f0f0f0;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-quantite i {
+    font-size: 1.5rem;
+}
+
+.nombre {
+    margin: 0 10px;
+    font-size: 1.2rem;
+}
+
+
+.commande p {
+    margin: 0;
+}
+
+
+
+.expedition,
+.remarque {
+    font-size: 1.5rem;
+    margin-top: 20px;
+}
+
+.expedition label,
+.remarque label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.expedition select,
+.remarque textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+
+
+.btn1.supprimer {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.btn1.supprimer i {
+    font-size: 24px;
+    color: #000000;
+}
+
+
+
+.btn2.vider {
+    background-color: #000000;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin-left: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+.btn2.vider:hover {
+    background-color: #000000;
+}
+
+.btn3.valider {
+    background-color: #e67e22;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin-left: 75%;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+.btn3.valider:hover {
+    background-color: #009900;
+}
+
+.total {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+.btn-quantite {
+    background-color: #f0f0f0;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-quantite i {
+    font-size: 1.7rem;
+}
+
+.btn-quantite.plus {
+
+    background-color: #fff;
+    color: #e67e22;
+
+}
+
+.btn-quantite.moins {
+    background-color: #fff;
+    color: #e67e22;
+}
+
+.nombre {
+    margin: 0 10px;
+    font-size: 1.2rem;
+}

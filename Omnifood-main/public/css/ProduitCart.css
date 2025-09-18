@@ -1,0 +1,120 @@
+/* Add to Cart */
+
+.cart {
+  width: 100%;
+  height: 6rem;
+  background-color: #e67e22;
+  color: #fff;
+  border: none;
+  display: flex; /* Use flexbox */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+
+.cart:hover {
+  background-color: #cf711f;
+}
+.shop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  width: 100%;
+}
+
+.heading-secondary {
+  margin: 0;
+}
+
+.shopping-cart-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.shopping-cart-container img {
+  width: 40px;
+}
+
+.quantity {
+  background: #e67e22;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  padding: 3px 10px;
+  font-size: 14px;
+}
+
+/* MEALS SECTION */
+
+.section-meals1 {
+  padding: 9.6rem 0;
+}
+
+.meal1 {
+  position: relative; /* Ensure meal is the relative parent */
+  box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.075);
+  border-radius: 11px;
+  overflow: hidden;
+  transition: all 0.4s;
+  background-color: #fff; /* Add a background color for better contrast */
+}
+
+.meal1:hover {
+  transform: translateY(-1.2rem);
+  box-shadow: 0 3.2rem 6.4rem rgba(0, 0, 0, 0.06);
+}
+
+
+
+.meal-title1 {
+  color: #333;
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+.meal-content1 {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center all child elements horizontally */
+}
+
+.meal-ingredients1 {
+  color: #666;
+  font-size: 1.6rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.meal-price1 {
+  color: #e67e22;
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+
+.cart1:hover {
+  background-color: #cf7519;
+}
+
+.meal-img1 {
+  width: 100%;
+  height: 30rem;
+  object-fit: cover;
+}
+
+/* Optional: If the button should have a specific width and still be centered */
+.btn {
+  width: auto; /* Adjust to your desired width */
+  padding: 1rem 2rem; /* Adjust padding as needed */
+  text-align: center; /* Ensure text is centered */
+}

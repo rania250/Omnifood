@@ -1,0 +1,54 @@
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/styleAcceuil.css') }}">
+    <style>
+        .category-img {
+            width: 385px;
+            height: 335px;
+            object-fit: cover; /* Pour garder les proportions et couvrir le conteneur */
+            border-radius: 10px; /* Pour arrondir les coins */
+        }
+        .meal {
+            cursor: pointer;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <section class="section-meals" id="Menu">
+        <div class="container center-text">
+            <h2><span class="highlight">Menu</span></h2>
+            <h2 class="heading-secondary">
+                Savourez Plus de 1000 Recettes Sélectionnées
+            </h2>
+        </div>
+
+        <div class="container grid grid--3-cols margin-bottom-md">
+            {% for categorie in categories %}
+                <div class="meal" data-href="{{ path('app_categorie_show', {'id': categorie.id}) }}">
+                    <img src="{{ asset('uploads/' ~ categorie.image) }}" class="category-img" alt="Image de la catégorie"/>
+                    <div class="meal-content">
+                        <p>{{ categorie.nom }}</p>
+                        <i class="bx bx-right-arrow-circle"></i>
+                    </div>
+                    <p class="meal-title">{{ categorie.nom }}</p>
+                </div>
+            {% else %}
+                <div class="meal">
+                    <p class="meal-title">Aucune catégorie trouvée.</p>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="container all-recipes">
+            <a href="{{ path('app_categorie_index') }}" class="link">Découvrez toutes nos catégories &rarr;</a>
+        </div>
+    </section>
+
+    <script>
+        document.querySelectorAll('.meal').forEach(function(meal) {
+            meal.addEventListener('click', function() {
+                window.location.href = meal.getAttribute('data-href');
+            });
+        });
+    </script>
+{% endblock %}

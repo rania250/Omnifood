@@ -1,0 +1,74 @@
+{% block body %}
+    <head>
+        <meta charset="UTF-8">
+        <title>Inscription!</title>
+        <link href="{{ asset('js/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
+        <link href="{{ asset('js/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet" />
+        <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    </head>
+    <main id="main" class="main-login">
+        <section class="section">
+            <div class="row d-flex justify-content-center align-items-center" style="margin-top: 50px;">
+                <div class="col-lg-8">
+                    <div class="shadow p-3 mb-5 bg-white rounded" style="padding: 20px;">
+                        <div class="row">
+                            <div class="col-lg-6 d-flex justify-content-center align-items-center">
+                                <div class="form form-content">
+                                    <form action="{{ path('app_login') }}" method="post">
+                                        <h1 class="login-title" style="color: #f26430">Connexion</h1>
+                                        {% if error %}
+                                            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                                        {% endif %}
+                                        <div class="field input-field">
+                                            <input type="email" placeholder="Email" name="email" class="input" value="{{ last_username }}" autocomplete="email" required autofocus />
+                                        </div>
+
+                                        <div class="field input-field">
+                                            <input type="password" name="password" placeholder="Mot de passe" class="password" autocomplete="current-password" required />
+                                            <i class="bx bx-hide eye-icon"></i>
+                                        </div>
+
+                                        <div class="field button-field">
+                                            <button type="submit" class="btn btn-primary">Se connecter</button>
+                                        </div>
+                                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
+                                    </form>
+
+                                    <div class="form-link">
+                                        <span>Vous n'avez pas un compte? <a href="{{ path('app_register') }}" class="link signup-link">S'inscrire</a></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 mt-3">
+                                <img src="{{ asset('img/client01.png') }}" alt="" style="width: 100%; height: auto;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script type="text/javascript">
+            document.addEventListener("DOMContentLoaded", function() {
+                const pwShowHide = document.querySelectorAll(".eye-icon");
+
+                pwShowHide.forEach((eyeIcon) => {
+                    eyeIcon.addEventListener("click", () => {
+                        let pwFields = eyeIcon.closest('.input-field').querySelectorAll(".password");
+
+                        pwFields.forEach((password) => {
+                            if (password.type === "password") {
+                                password.type = "text";
+                                eyeIcon.classList.replace("bx-hide", "bx-show");
+                            } else {
+                                password.type = "password";
+                                eyeIcon.classList.replace("bx-show", "bx-hide");
+                            }
+                        });
+                    });
+                });
+            });
+        </script>
+{% endblock %}

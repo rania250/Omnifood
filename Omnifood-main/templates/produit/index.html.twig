@@ -1,0 +1,53 @@
+{% block stylesheets %}
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('css/general.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/ProduitCart.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/queries.css') }}" />
+{% endblock %}
+
+{% block javascripts %}
+    <script type="module" src="https://unpkg.com/ionicons@5.4.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.4.0/dist/ionicons/ionicons.js"></script>
+    <script defer src="https://unpkg.com/smoothscroll-polyfill@0.4.4/dist/smoothscroll.min.js"></script>
+    <script defer src="{{ asset('js/script.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+<main>
+    <section class="section-meals" id="Menu">
+        <div class="container center-text">
+            <span class="subheading">Produits</span>
+            <div class="shop">
+                <h2 class="heading-secondary">Produits de la catégorie</h2>
+                <div class="shopping-cart-container">
+                    <a href="{{ path('panier_index') }}">
+                        <img src="{{ asset('img/shopping.svg') }}" class="shopping-cart" alt="Shopping Cart" />
+                        <span class="quantity">{{ totalQuantity }}</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="container grid grid--3-cols margin-bottom-md" style="margin-top: 7rem">
+            {% for produit in produits %}
+                <div class="meal1" >
+                    <img src="{{ asset('uploads/' ~ produit.image) }}" class="meal-img1" alt="{{ produit.nom }}" />
+                    <div class="meal-content1">
+                        <p class="meal-title1">{{ produit.nom }}</p>
+                        <div class="meal-ingredients1">
+                            {{ produit.ingredients | raw }}
+                        </div>
+                        {% set prixDivise = produit.prix / 100 %}
+                        <p class="meal-price1">€{{ prixDivise }}</p>
+                        <a href="{{ path('panier_add', {id: produit.id}) }}" class="btn cart">Ajouter au panier</a>
+                    </div>
+                </div>
+            {% else %}
+                <p>Aucun produit trouvé.</p>
+            {% endfor %}
+
+        </div>
+    </section>
+</main>
+{% endblock %}

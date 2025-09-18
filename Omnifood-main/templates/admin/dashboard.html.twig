@@ -1,0 +1,116 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block content %}
+    <div class="dashboard-container">
+        <div class="notifications">
+            <h3>Notifications</h3>
+            <ul id="notification-list"></ul>
+        </div>
+
+        <div class="dashboard-stats">
+            <div class="stat">
+                <h3>Commandes en attente</h3>
+                <p>{{ pendingOrders }}</p>
+            </div>
+            <div class="stat">
+                <h3>Commandes validées</h3>
+                <p>{{ validatedOrders }}</p>
+            </div>
+            <div class="stat">
+                <h3>Commandes annulées</h3>
+                <p>{{ canceledOrders }}</p>
+            </div>
+            <div class="stat">
+                <h3>Commandes livrées</h3>
+                <p>{{ deliveredOrders }}</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const notificationList = document.getElementById('notification-list');
+            const notificationSound = new Audio('/sounds/notification.mp3');
+
+            function checkNewOrders() {
+                fetch('{{ path('admin_check_new_orders') }}')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.length > 0) {
+                            data.forEach(message => {
+                                const li = document.createElement('li');
+                                li.textContent = message;
+                                notificationList.appendChild(li);
+                            });
+                            notificationSound.play();
+                        }
+                    })
+                    .catch(error => console.error('Error fetching new orders:', error));
+            }
+
+            setInterval(checkNewOrders, 5000); // Check for new orders every 5 seconds
+        });
+    </script>
+
+    <style>
+        .dashboard-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+        .notifications {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            padding: 20px;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .notifications h3 {
+            margin-top: 0;
+            font-size: 1.5em;
+            text-align: center;
+        }
+        .notifications ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+        }
+        .notifications li {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            padding: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .dashboard-stats {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            max-width: 1000px;
+            flex-wrap: wrap;
+        }
+        .stat {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            text-align: center;
+            margin: 10px;
+            flex: 1 1 200px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .stat h3 {
+            font-size: 1.25em;
+            margin-bottom: 10px;
+        }
+        .stat p {
+            font-size: 2em;
+            margin: 0;
+        }
+    </style>
+{% endblock %}

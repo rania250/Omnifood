@@ -1,0 +1,140 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/styleAcceuil.css') }}">
+    <style>
+        .category-img {
+            width:335px;
+            height:335px;
+            object-fit: cover; /* Pour garder les proportions et couvrir le conteneur */
+            border-radius: 10px; /* Pour arrondir les coins */
+        }
+    </style>
+    <!-- CSS Files -->
+    <link href="{{ asset('js/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('js/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet" />
+    <link href="{{ asset('css/main.css') }}" rel="stylesheet" />
+    <link href="{{ asset('css/chefs.css') }}" rel="stylesheet" />
+    <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+    <main>
+        <section class="section-hero">
+            <div class="hero">
+                <div class="hero-text-box">
+                    <h1 class="heading-primary">
+                        Un repas sain livré à votre porte, chaque jour
+                    </h1>
+                    <p class="hero-description">
+                        L'abonnement alimentaire intelligent 365 jours par an qui vous fera manger sainement à nouveau. Adapté à vos goûts personnels et à vos besoins nutritionnels.
+                    </p>
+                    <a href="#Menu" class="btn btn--outline">Commencer &darr;</a>
+                </div>
+                <div class="hero-img-box">
+                    <picture>
+                        <source srcset="{{ asset('img/hero.webp') }}" type="image/webp" />
+                        <source srcset="{{ asset('img/hero-min.png') }}" type="image/png" />
+                        <img src="{{ asset('img/hero-min.png') }}" class="hero-img" alt="Femme appréciant de la nourriture, repas dans des conteneurs de stockage et bols de nourriture sur une table" />
+                    </picture>
+                </div>
+            </div>
+        </section>
+
+        {% include 'categorie/index.html.twig' %}
+
+
+
+        <div class="container" id="chefs">
+            <h2>Nos Professionels <span class="highlight">Chefs</span></h2>
+            <p class="description">
+                Rencontrez nos chefs experts, prêts à vous offrir une expérience culinaire de premier ordre.
+
+            </p>
+
+            <div class="chef-cards">
+                <div class="chef-card">
+                    <img src="{{ asset('img/chef2.jpg') }}" alt="Walter White" />
+                    <h2>Walter White</h2>
+                    <p class="title">Master Chef</p>
+                    <ul class="social-links" style="justify-content: center;">
+                        <li>
+                            <a class="footer-link" href="#"
+                            ><ion-icon class="social-icon" name="logo-instagram"></ion-icon
+                                ></a>
+                        </li>
+                        <li>
+                            <a class="footer-link" href="#"
+                            ><ion-icon class="social-icon" name="logo-facebook"></ion-icon
+                                ></a>
+                        </li>
+                        <li>
+                            <a class="footer-link" href="#"
+                            ><ion-icon class="social-icon" name="logo-twitter"></ion-icon
+                                ></a>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="chef-card">
+                    <img src="{{ asset('img/chef1.jpg') }}" alt="Sarah Jhonson" />
+                    <h2>Sarah Jhonson</h2>
+                    <p class="title">Patissier</p>
+                    <ul class="social-links"  style="justify-content: center">
+                        <li>
+                            <a class="footer-link" href="#"
+                            ><ion-icon class="social-icon" name="logo-instagram"></ion-icon
+                                ></a>
+                        </li>
+                        <li>
+                            <a class="footer-link" href="#"
+                            ><ion-icon class="social-icon" name="logo-facebook"></ion-icon
+                                ></a>
+                        </li>
+                        <li>
+                            <a class="footer-link" href="#"
+                            ><ion-icon class="social-icon" name="logo-twitter"></ion-icon
+                                ></a>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="chef-card">
+                    <img src="{{ asset('img/chef3.jpg') }}" alt="William Anderson" />
+                    <h2>William Anderson</h2>
+                    <p class="title">Cook</p>
+                    <ul class="social-links"  style="justify-content: center">
+                        <li>
+                            <a class="footer-link" href="#"
+                            ><ion-icon class="social-icon" name="logo-instagram"></ion-icon
+                                ></a>
+                        </li>
+                        <li>
+                            <a class="footer-link" href="#"
+                            ><ion-icon class="social-icon" name="logo-facebook"></ion-icon
+                                ></a>
+                        </li>
+                        <li>
+                            <a class="footer-link" href="#"
+                            ><ion-icon class="social-icon" name="logo-twitter"></ion-icon
+                                ></a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+
+
+    </main>
+{% endblock %}
+
+{% block javascripts %}
+    <!-- Template Main JS File -->
+    <script src="{{ asset('js/main.js') }}"></script>
+{% endblock %}
